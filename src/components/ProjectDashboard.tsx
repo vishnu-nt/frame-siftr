@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   Folder,
   FolderPlus,
@@ -10,9 +10,9 @@ import {
   Check,
   X,
   Plus,
-} from 'lucide-react';
-import { ProjectData } from '../types';
-import { supabase } from '../services/supabaseClient';
+} from "lucide-react";
+import { ProjectData } from "../types";
+import { supabase } from "../services/supabaseClient";
 
 interface ProjectDashboardProps {
   projects: ProjectData[];
@@ -31,11 +31,13 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
   onDeleteProject,
   onImportProject,
 }) => {
-  const [newProjectName, setNewProjectName] = useState('');
+  const [newProjectName, setNewProjectName] = useState("");
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
-  const [editName, setEditName] = useState('');
-  const [deletingProjectId, setDeletingProjectId] = useState<string | null>(null);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [editName, setEditName] = useState("");
+  const [deletingProjectId, setDeletingProjectId] = useState<string | null>(
+    null,
+  );
+  const [errorMsg, setErrorMsg] = useState("");
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,7 +47,9 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
       setUserEmail(session?.user?.email || null);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: string, session: any) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event: string, session: any) => {
       setUserEmail(session?.user?.email || null);
     });
 
@@ -63,18 +67,20 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
 
     // Show warning if project name already exists
     const duplicate = projects.some(
-      (p) => p.name.toLowerCase() === trimmed.toLowerCase()
+      (p) => p.name.toLowerCase() === trimmed.toLowerCase(),
     );
     if (duplicate) {
-      setErrorMsg('A project with this name already exists (you can still create it, but names will match).');
+      setErrorMsg(
+        "A project with this name already exists (you can still create it, but names will match).",
+      );
     } else {
-      setErrorMsg('');
+      setErrorMsg("");
     }
 
     try {
       await onCreateProject(trimmed);
-      setNewProjectName('');
-      setErrorMsg('');
+      setNewProjectName("");
+      setErrorMsg("");
     } catch (err) {
       console.error(err);
     }
@@ -109,23 +115,23 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
           const data = JSON.parse(event.target?.result as string);
           onImportProject(data);
         } catch (err) {
-          alert('Failed to parse JSON file. Make sure it is a valid export.');
+          alert("Failed to parse JSON file. Make sure it is a valid export.");
         }
       };
       reader.readAsText(file);
     }
     if (e.target) {
-      e.target.value = '';
+      e.target.value = "";
     }
   };
 
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -141,17 +147,24 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
           <div className="flex-1">
             <h1 className="text-3xl font-bold tracking-tight text-white flex items-center justify-center md:justify-start gap-3">
               <FolderPlus className="text-cursor-accent" size={32} />
-              <span>Cullr</span>
+              <span>Frame Siftr</span>
             </h1>
             <p className="text-cursor-text-secondary mt-2 text-sm">
-              Organize, filter, and label folders of images locally in your browser.
+              Organize, filter, and label folders of images locally in your
+              browser.
             </p>
           </div>
           <div className="mt-4 md:mt-0 flex flex-col md:items-end gap-3 shrink-0">
             {userEmail && (
               <div className="flex items-center justify-center gap-3 bg-cursor-sidebar/60 border border-cursor-border px-3 py-1.5 rounded-lg text-xs">
-                <span className="text-cursor-text-secondary truncate max-w-[180px]" title={userEmail}>
-                  Logged in as <strong className="text-white font-medium">{userEmail}</strong>
+                <span
+                  className="text-cursor-text-secondary truncate max-w-[180px]"
+                  title={userEmail}
+                >
+                  Logged in as{" "}
+                  <strong className="text-white font-medium">
+                    {userEmail}
+                  </strong>
                 </span>
                 <button
                   onClick={handleLogout}
@@ -180,7 +193,6 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
           </div>
         </div>
 
-
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Create new project card */}
@@ -205,7 +217,9 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
               </div>
 
               {errorMsg && (
-                <p className="text-xs text-yellow-500/80 leading-normal">{errorMsg}</p>
+                <p className="text-xs text-yellow-500/80 leading-normal">
+                  {errorMsg}
+                </p>
               )}
 
               <button
@@ -227,8 +241,13 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
 
             {projects.length === 0 ? (
               <div className="bg-cursor-sidebar/20 border border-dashed border-cursor-border rounded-xl p-12 text-center flex flex-col items-center justify-center gap-3">
-                <Folder size={40} className="text-cursor-text-secondary opacity-40" />
-                <p className="text-sm text-cursor-text-secondary">No projects found. Create one to get started!</p>
+                <Folder
+                  size={40}
+                  className="text-cursor-text-secondary opacity-40"
+                />
+                <p className="text-sm text-cursor-text-secondary">
+                  No projects found. Create one to get started!
+                </p>
               </div>
             ) : (
               <div className="flex flex-col gap-3 max-h-[460px] overflow-y-auto pr-2 scrollbar-thin">
@@ -291,14 +310,24 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-cursor-text-secondary">
                           <span className="flex items-center gap-1">
                             <Calendar size={12} />
-                            <span>Modified {formatDate(project.lastModified)}</span>
+                            <span>
+                              Modified {formatDate(project.lastModified)}
+                            </span>
                           </span>
                           {hasUpload ? (
-                            <span className="truncate max-w-[200px]" title={project.uploadRoot}>
-                              Folder: <span className="font-mono text-white/70">{project.uploadRoot}</span>
+                            <span
+                              className="truncate max-w-[200px]"
+                              title={project.uploadRoot}
+                            >
+                              Folder:{" "}
+                              <span className="font-mono text-white/70">
+                                {project.uploadRoot}
+                              </span>
                             </span>
                           ) : (
-                            <span className="text-yellow-500/70">No folder selected</span>
+                            <span className="text-yellow-500/70">
+                              No folder selected
+                            </span>
                           )}
                         </div>
 
@@ -312,7 +341,8 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                               />
                             </div>
                             <span className="text-[10px] font-mono text-cursor-text-secondary min-w-[50px]">
-                              {project.labeledImages}/{project.totalImages} ({progress.toFixed(0)}%)
+                              {project.labeledImages}/{project.totalImages} (
+                              {progress.toFixed(0)}%)
                             </span>
                           </div>
                         )}
@@ -348,14 +378,16 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
       {deletingProjectId && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-cursor-sidebar border border-cursor-border rounded-xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <h3 className="text-lg font-semibold text-white mb-2">Delete Project</h3>
+            <h3 className="text-lg font-semibold text-white mb-2">
+              Delete Project
+            </h3>
             <p className="text-sm text-cursor-text-secondary mb-6 leading-relaxed">
-              Are you sure you want to delete project{' '}
+              Are you sure you want to delete project{" "}
               <strong className="text-white">
                 "{projects.find((p) => p.id === deletingProjectId)?.name}"
               </strong>
-              ? This will remove all image labeling and assignments from IndexedDB. This action cannot
-              be undone.
+              ? This will remove all image labeling and assignments from
+              IndexedDB. This action cannot be undone.
             </p>
             <div className="flex justify-end gap-3">
               <button

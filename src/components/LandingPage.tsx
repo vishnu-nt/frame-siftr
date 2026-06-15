@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { AuthForm } from './AuthForm';
-import { 
-  Zap, 
-  ShieldCheck, 
-  Coins, 
-  ArrowRight, 
-  Keyboard, 
-  FolderOpen, 
-  Download, 
+import React, { useState, useEffect } from "react";
+import { AuthForm } from "./AuthForm";
+import {
+  Zap,
+  ShieldCheck,
+  Coins,
+  ArrowRight,
+  Keyboard,
+  FolderOpen,
+  Download,
   Camera,
   Star,
-  Laptop
-} from 'lucide-react';
+  Laptop,
+} from "lucide-react";
 
 interface LandingPageProps {
   onSuccessAuth: (session: any) => void;
@@ -26,22 +26,55 @@ interface MockImage {
 }
 
 // Label colors for the mock culling simulator (defined outside component to prevent re-creation)
-const labelNames: { [key: string]: { name: string, color: string } } = {
-  '1': { name: 'Select', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
-  '2': { name: 'Reject', color: 'bg-red-500/20 text-red-300 border-red-500/40' },
-  '3': { name: 'Maybe', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
-  '4': { name: 'Edit', color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' },
-  '5': { name: 'Retouch', color: 'bg-pink-500/20 text-pink-300 border-pink-500/40' },
+const labelNames: { [key: string]: { name: string; color: string } } = {
+  "1": {
+    name: "Select",
+    color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+  },
+  "2": {
+    name: "Reject",
+    color: "bg-red-500/20 text-red-300 border-red-500/40",
+  },
+  "3": {
+    name: "Maybe",
+    color: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+  },
+  "4": {
+    name: "Edit",
+    color: "bg-indigo-500/20 text-indigo-300 border-indigo-500/40",
+  },
+  "5": {
+    name: "Retouch",
+    color: "bg-pink-500/20 text-pink-300 border-pink-500/40",
+  },
 };
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
-  
+
   // Interactive Sandbox Simulator State
   const [mockImages, setMockImages] = useState<MockImage[]>([
-    { id: '1', name: 'DSC_3892_Sunset_Peak.NEF', gradient: 'from-orange-500 via-pink-600 to-purple-800', type: 'RAW Landscape', label: null },
-    { id: '2', name: 'IMG_0411_Ocean_Breeze.CR3', gradient: 'from-blue-600 via-cyan-500 to-indigo-800', type: 'RAW Portrait', label: null },
-    { id: '3', name: 'A7R_9210_Forest_Path.ARW', gradient: 'from-emerald-600 via-teal-500 to-green-800', type: 'RAW Nature', label: null },
+    {
+      id: "1",
+      name: "DSC_3892_Sunset_Peak.NEF",
+      gradient: "from-orange-500 via-pink-600 to-purple-800",
+      type: "RAW Landscape",
+      label: null,
+    },
+    {
+      id: "2",
+      name: "IMG_0411_Ocean_Breeze.CR3",
+      gradient: "from-blue-600 via-cyan-500 to-indigo-800",
+      type: "RAW Portrait",
+      label: null,
+    },
+    {
+      id: "3",
+      name: "A7R_9210_Forest_Path.ARW",
+      gradient: "from-emerald-600 via-teal-500 to-green-800",
+      type: "RAW Nature",
+      label: null,
+    },
   ]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [simFeedback, setSimFeedback] = useState<string | null>(null);
@@ -52,15 +85,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
       // Only trigger if auth modal is not open
       if (showAuthModal) return;
 
-      if (e.key === 'ArrowRight') {
+      if (e.key === "ArrowRight") {
         e.preventDefault();
         setActiveIndex((prev) => (prev + 1) % mockImages.length);
         setSimFeedback(null);
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === "ArrowLeft") {
         e.preventDefault();
-        setActiveIndex((prev) => (prev - 1 + mockImages.length) % mockImages.length);
+        setActiveIndex(
+          (prev) => (prev - 1 + mockImages.length) % mockImages.length,
+        );
         setSimFeedback(null);
-      } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
+      } else if (["1", "2", "3", "4", "5"].includes(e.key)) {
         e.preventDefault();
         const num = e.key;
         setMockImages((prev) => {
@@ -71,20 +106,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
         setSimFeedback(`Assigned: ${labelNames[num].name}`);
         // Reset feedback after a bit
         setTimeout(() => setSimFeedback(null), 1200);
-      } else if (e.key === '0' || e.key === 'Escape' || e.key === 'Backspace') {
+      } else if (e.key === "0" || e.key === "Escape" || e.key === "Backspace") {
         e.preventDefault();
         setMockImages((prev) => {
           const updated = [...prev];
           updated[activeIndex] = { ...updated[activeIndex], label: null };
           return updated;
         });
-        setSimFeedback('Cleared label');
+        setSimFeedback("Cleared label");
         setTimeout(() => setSimFeedback(null), 1200);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeIndex, showAuthModal, mockImages.length]);
 
   const handleSimLabelClick = (num: string) => {
@@ -103,7 +138,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
       updated[activeIndex] = { ...updated[activeIndex], label: null };
       return updated;
     });
-    setSimFeedback('Cleared label');
+    setSimFeedback("Cleared label");
     setTimeout(() => setSimFeedback(null), 1200);
   };
 
@@ -121,7 +156,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <Camera size={18} className="text-white" />
           </div>
           <span className="text-xl font-bold tracking-tight text-white bg-gradient-to-r from-white to-slate-300 bg-clip-text">
-            Cullr
+            Frame Siftr
           </span>
         </div>
 
@@ -145,7 +180,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
         </div>
       </header>
 
-
       {/* Hero Section */}
       <section className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-xs text-indigo-300 font-semibold mb-6">
@@ -154,14 +188,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.1] mb-6">
-          Cull thousands of RAW photos{' '}
+          Cull thousands of RAW photos{" "}
           <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
             without the wait.
           </span>
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
-          A lightning-fast, privacy-first photo selector that runs entirely in your browser. Organize massive shoots instantly without uploading a single megabyte.
+          A lightning-fast, privacy-first photo selector that runs entirely in
+          your browser. Organize massive shoots instantly without uploading a
+          single megabyte.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
@@ -172,7 +208,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             className="w-full sm:w-auto flex items-center justify-center gap-2 py-3.5 px-7 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl text-sm shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all group"
           >
             <span>Launch Culling Workspace</span>
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight
+              size={16}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </button>
 
           <a
@@ -189,9 +228,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
               <Zap size={20} />
             </div>
-            <h3 className="text-base font-bold text-white mb-2">Zero Server Latency</h3>
+            <h3 className="text-base font-bold text-white mb-2">
+              Zero Server Latency
+            </h3>
             <p className="text-sm text-slate-400 leading-relaxed font-light">
-              Tested to handle 10,000+ high-res RAW and JPEG images smoothly. Instant file scanning and keyboard culling rates without server roundtrips.
+              Tested to handle 10,000+ high-res RAW and JPEG images smoothly.
+              Instant file scanning and keyboard culling rates without server
+              roundtrips.
             </p>
           </div>
 
@@ -199,9 +242,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
               <ShieldCheck size={20} />
             </div>
-            <h3 className="text-base font-bold text-white mb-2">100% Secure & Private</h3>
+            <h3 className="text-base font-bold text-white mb-2">
+              100% Secure & Private
+            </h3>
             <p className="text-sm text-slate-400 leading-relaxed font-light">
-              Your assets never touch our servers. File parsing and IndexedDB metadata caching remain entirely local inside your browser sandbox.
+              Your assets never touch our servers. File parsing and IndexedDB
+              metadata caching remain entirely local inside your browser
+              sandbox.
             </p>
           </div>
 
@@ -209,22 +256,32 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4">
               <Coins size={20} />
             </div>
-            <h3 className="text-base font-bold text-white mb-2">Free Unlimited Culling</h3>
+            <h3 className="text-base font-bold text-white mb-2">
+              Free Unlimited Culling
+            </h3>
             <p className="text-sm text-slate-400 leading-relaxed font-light">
-              Cull, tag, and export without limitations or tiers. Save your progress inside IndexedDB, and close your tab knowing your work is safe.
+              Cull, tag, and export without limitations or tiers. Save your
+              progress inside IndexedDB, and close your tab knowing your work is
+              safe.
             </p>
           </div>
         </div>
       </section>
 
       {/* Simulator Section */}
-      <section id="simulator" className="relative z-10 max-w-6xl mx-auto px-6 py-20 border-t border-white/5 scroll-mt-6">
+      <section
+        id="simulator"
+        className="relative z-10 max-w-6xl mx-auto px-6 py-20 border-t border-white/5 scroll-mt-6"
+      >
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Test the Speed: Interactive Simulator
           </h2>
           <p className="text-slate-400 max-w-xl mx-auto text-sm font-light leading-relaxed">
-            Click inside the simulator below to focus, then press numeric hotkeys <strong className="text-indigo-400">1 to 5</strong> to assign categories or <strong className="text-slate-300">Arrow keys</strong> to navigate.
+            Click inside the simulator below to focus, then press numeric
+            hotkeys <strong className="text-indigo-400">1 to 5</strong> to
+            assign categories or{" "}
+            <strong className="text-slate-300">Arrow keys</strong> to navigate.
           </p>
         </div>
 
@@ -238,7 +295,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
                 <span className="w-3 h-3 rounded-full bg-green-500/70" />
                 <span className="text-xs text-slate-400 font-mono ml-2 truncate">
-                  cullr_sim_workspace / {mockImages[activeIndex].name}
+                  framesiftr_sim_workspace / {mockImages[activeIndex].name}
                 </span>
               </div>
               {simFeedback && (
@@ -251,7 +308,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             {/* Sandbox Canvas */}
             <div className="relative aspect-[16/10] bg-slate-950 flex items-center justify-center p-6 select-none">
               {/* Active Image Canvas */}
-              <div className={`w-full h-full rounded-lg bg-gradient-to-br ${mockImages[activeIndex].gradient} shadow-inner flex flex-col items-center justify-center relative transition-all duration-300 border-2 border-indigo-500/40`}>
+              <div
+                className={`w-full h-full rounded-lg bg-gradient-to-br ${mockImages[activeIndex].gradient} shadow-inner flex flex-col items-center justify-center relative transition-all duration-300 border-2 border-indigo-500/40`}
+              >
                 {/* Image Details Badge */}
                 <div className="absolute top-4 left-4 px-3 py-1 bg-black/40 backdrop-blur-md rounded-md text-xs font-mono text-slate-200">
                   {mockImages[activeIndex].type}
@@ -260,7 +319,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                 {/* Rating Badge */}
                 {mockImages[activeIndex].label && (
                   <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-1.5 shadow-lg">
-                    <Star size={12} className="text-yellow-400 fill-yellow-400" />
+                    <Star
+                      size={12}
+                      className="text-yellow-400 fill-yellow-400"
+                    />
                     <span className="text-xs font-bold font-mono text-white">
                       {labelNames[mockImages[activeIndex].label!].name}
                     </span>
@@ -271,7 +333,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                 <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center">
                   <div className="w-4 h-4 rounded-full border border-white/20" />
                 </div>
-                
+
                 <span className="text-xs font-mono text-white/50 mt-4 uppercase tracking-widest">
                   Active Sandbox Frame
                 </span>
@@ -282,18 +344,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="bg-[#0e1322] px-6 py-4 border-t border-white/5 flex flex-wrap gap-4 items-center justify-between">
               {/* Keypress quick select */}
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-medium text-slate-400 mr-1">Labels:</span>
-                {['1', '2', '3', '4', '5'].map((num) => (
+                <span className="text-xs font-medium text-slate-400 mr-1">
+                  Labels:
+                </span>
+                {["1", "2", "3", "4", "5"].map((num) => (
                   <button
                     key={num}
                     onClick={() => handleSimLabelClick(num)}
                     className={`text-xs px-2.5 py-1.5 border rounded-md font-medium transition-all ${
                       mockImages[activeIndex].label === num
-                        ? 'bg-indigo-600 border-indigo-400 text-white shadow-md'
-                        : 'bg-slate-900 border-white/10 hover:border-slate-700 text-slate-300'
+                        ? "bg-indigo-600 border-indigo-400 text-white shadow-md"
+                        : "bg-slate-900 border-white/10 hover:border-slate-700 text-slate-300"
                     }`}
                   >
-                    <span className="font-mono bg-black/20 px-1 py-0.5 rounded text-[10px] mr-1">{num}</span>
+                    <span className="font-mono bg-black/20 px-1 py-0.5 rounded text-[10px] mr-1">
+                      {num}
+                    </span>
                     {labelNames[num].name}
                   </button>
                 ))}
@@ -310,7 +376,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
               {/* Navigation Indicator */}
               <div className="flex items-center gap-3">
                 <button
-                  onClick={() => setActiveIndex((prev) => (prev - 1 + mockImages.length) % mockImages.length)}
+                  onClick={() =>
+                    setActiveIndex(
+                      (prev) =>
+                        (prev - 1 + mockImages.length) % mockImages.length,
+                    )
+                  }
                   className="px-2.5 py-1.5 bg-slate-900 border border-white/10 hover:bg-slate-800 rounded-md text-slate-300 text-xs transition"
                 >
                   ◀
@@ -319,7 +390,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                   {activeIndex + 1} / {mockImages.length}
                 </span>
                 <button
-                  onClick={() => setActiveIndex((prev) => (prev + 1) % mockImages.length)}
+                  onClick={() =>
+                    setActiveIndex((prev) => (prev + 1) % mockImages.length)
+                  }
                   className="px-2.5 py-1.5 bg-slate-900 border border-white/10 hover:bg-slate-800 rounded-md text-slate-300 text-xs transition"
                 >
                   ▶
@@ -337,43 +410,58 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                 Culling Sandbox
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed font-light mb-4">
-                Our hotkeys allow you to sort photos instantly. Try clicking on this panel to focus this window, then press keys to control the sandbox:
+                Our hotkeys allow you to sort photos instantly. Try clicking on
+                this panel to focus this window, then press keys to control the
+                sandbox:
               </p>
-              
+
               <ul className="space-y-2.5 text-xs text-slate-400">
                 <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
                   <span>Next Photo</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">▶ Arrow</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                    ▶ Arrow
+                  </kbd>
                 </li>
                 <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
                   <span>Previous Photo</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">◀ Arrow</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                    ◀ Arrow
+                  </kbd>
                 </li>
                 <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
                   <span>Label & Rate</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">1 - 5 Keys</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                    1 - 5 Keys
+                  </kbd>
                 </li>
                 <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
                   <span>Clear Selection</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">0 / Esc</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                    0 / Esc
+                  </kbd>
                 </li>
               </ul>
             </div>
 
             {/* Sandbox status info */}
             <div className="p-6 bg-slate-900/30 border border-white/5 rounded-2xl">
-              <h3 className="text-sm font-bold text-white mb-2">Simulated Stats</h3>
+              <h3 className="text-sm font-bold text-white mb-2">
+                Simulated Stats
+              </h3>
               <div className="space-y-2 text-xs font-light text-slate-400">
                 <div className="flex justify-between py-1 border-b border-white/5">
                   <span>Demo Labeled:</span>
                   <span className="font-mono text-white font-semibold">
-                    {mockImages.filter(x => x.label !== null).length} / {mockImages.length}
+                    {mockImages.filter((x) => x.label !== null).length} /{" "}
+                    {mockImages.length}
                   </span>
                 </div>
                 <div className="flex justify-between py-1">
                   <span>Active Selection:</span>
                   <span className="font-mono text-white font-semibold">
-                    {mockImages[activeIndex].label ? labelNames[mockImages[activeIndex].label!].name : 'None'}
+                    {mockImages[activeIndex].label
+                      ? labelNames[mockImages[activeIndex].label!].name
+                      : "None"}
                   </span>
                 </div>
               </div>
@@ -386,7 +474,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-20 border-t border-white/5">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            How Cullr Works
+            How Frame Siftr Works
           </h2>
           <p className="text-slate-400 max-w-xl mx-auto text-sm font-light leading-relaxed">
             Three simple steps to unlock instant workflow organization.
@@ -401,9 +489,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="w-12 h-12 rounded-full bg-slate-850 flex items-center justify-center text-slate-300 mt-4 mb-5 border border-white/10">
               <Laptop size={22} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Launch the App</h3>
+            <h3 className="text-lg font-bold text-white mb-2">
+              Launch the App
+            </h3>
             <p className="text-sm text-slate-400 leading-relaxed font-light">
-              Create your free secure account. Set up your local project database within seconds inside your browser cache.
+              Create your free secure account. Set up your local project
+              database within seconds inside your browser cache.
             </p>
           </div>
 
@@ -414,9 +505,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="w-12 h-12 rounded-full bg-slate-850 flex items-center justify-center text-slate-300 mt-4 mb-5 border border-white/10">
               <FolderOpen size={22} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Select Image Folder</h3>
+            <h3 className="text-lg font-bold text-white mb-2">
+              Select Image Folder
+            </h3>
             <p className="text-sm text-slate-400 leading-relaxed font-light">
-              Select the directory of photos directly from your disk. Cullr reads them on-the-fly and generates instant visual grids.
+              Select the directory of photos directly from your disk. Frame
+              Siftr reads them on-the-fly and generates instant visual grids.
             </p>
           </div>
 
@@ -427,9 +521,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             <div className="w-12 h-12 rounded-full bg-slate-850 flex items-center justify-center text-slate-300 mt-4 mb-5 border border-white/10">
               <Download size={22} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Export Selection</h3>
+            <h3 className="text-lg font-bold text-white mb-2">
+              Export Selection
+            </h3>
             <p className="text-sm text-slate-400 leading-relaxed font-light">
-              Press hotkeys to tag, then export assignments to JSON and run the helper shell script to instantly sort files on your actual disk.
+              Press hotkeys to tag, then export assignments to JSON and run the
+              helper shell script to instantly sort files on your actual disk.
             </p>
           </div>
         </div>
@@ -437,18 +534,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
 
       {/* Footer */}
       <footer className="relative z-10 max-w-7xl mx-auto px-6 py-12 border-t border-white/5 text-center text-xs text-slate-500">
-        <p className="mb-2">© {new Date().getFullYear()} Cullr. Built for photographers, developers, and speed.</p>
-        <p>No images are uploaded. High performance, complete database privacy, always free.</p>
+        <p className="mb-2">
+          © {new Date().getFullYear()} Frame Siftr. Built for photographers,
+          developers, and speed.
+        </p>
+        <p>
+          No images are uploaded. High performance, complete database privacy,
+          always free.
+        </p>
       </footer>
 
       {/* Auth Modal Overlay */}
       {showAuthModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
-          <AuthForm 
+          <AuthForm
             onSuccess={(session) => {
               setShowAuthModal(false);
               onSuccessAuth(session);
-            }} 
+            }}
             onClose={() => setShowAuthModal(false)}
           />
         </div>

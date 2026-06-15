@@ -66,8 +66,8 @@ export const ImageThumbnail: React.FC<ImageThumbnailProps> = ({
     setIsLabeled(true);
   };
 
-  const getLabelColor = (labelId: string) => {
-    const label = categories.find(c => c.id === labelId);
+  const getLabelColor = (labelNameOrId: string) => {
+    const label = categories.find(c => c.id === labelNameOrId || c.name === labelNameOrId);
     return label?.color || '#6b7280';
   };
 

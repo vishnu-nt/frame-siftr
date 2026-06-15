@@ -1,4 +1,4 @@
-# Agent guide — Cullr
+# Agent guide — Frame Siftr
 
 Quick orientation for AI coding agents. Human-facing docs: [README.md](./README.md).
 

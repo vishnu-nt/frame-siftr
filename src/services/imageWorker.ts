@@ -8,6 +8,10 @@ export class ImageWorkerService {
   }
 
   private initializeWorker() {
+    if (typeof Worker === 'undefined' || typeof Blob === 'undefined' || typeof URL === 'undefined' || typeof URL.createObjectURL === 'undefined') {
+      console.warn('Worker is not supported in this environment.');
+      return;
+    }
     // Create worker from the inline code since we can't import the worker file directly
     const workerCode = `
       self.onmessage = async (event) => {

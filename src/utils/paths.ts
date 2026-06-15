@@ -52,6 +52,14 @@ export function sanitizeLabelName(name: string): string {
   return name.replace(/[/\\?%*:|"<>]/g, '_').trim() || 'unnamed';
 }
 
+export function getLabelNameById(
+  labels: Array<{ id: string; name: string }>,
+  labelId: string | null
+): string | null {
+  if (!labelId) return null;
+  return labels.find((l) => l.id === labelId)?.name ?? null;
+}
+
 export function getExtension(filename: string): string {
   const parts = filename.split('.');
   return parts.length > 1 ? (parts.pop()?.toLowerCase() || '') : '';

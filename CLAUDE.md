@@ -1,4 +1,4 @@
-# Claude Code — Cullr
+# Claude Code — Frame Siftr
 
 Read **[AGENTS.md](./AGENTS.md)** first. It is the canonical onboarding doc for all AI agents in this repo.
 

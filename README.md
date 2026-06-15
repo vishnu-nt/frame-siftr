@@ -1,4 +1,4 @@
-# Cullr
+# Frame Siftr
 
 A React TypeScript application for categorizing and labeling large collections of images. Built with a clean architecture that mimics the Cursor app interface.
 
@@ -35,7 +35,7 @@ A React TypeScript application for categorizing and labeling large collections o
 - `CategoryManager`: Modal for managing categories
 
 #### Business Logic
-- `useAppState`: Custom hook managing application state
+- `useAppState`: Orchestrates application state by coordinating modular sub-hooks (`useSelection`, `useProjects`, `useLabels`, `useImages`, `useExportImport`, `useViewerNavigation`)
 - `FileUploadService`: Handles file processing and validation
 - `ImageWorkerService`: Web Worker wrapper for image processing
 

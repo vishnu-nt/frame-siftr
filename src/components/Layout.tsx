@@ -41,8 +41,8 @@ export const Layout: React.FC = () => {
     handleCloseImageViewer,
     handlePreviousImage,
     handleNextImage,
-    getFilteredImages,
-    getNavigationState,
+    filteredImages,
+    navigationState,
     setIsLabelManagerOpen,
     // Multi-project exports
     projects,
@@ -65,7 +65,7 @@ export const Layout: React.FC = () => {
     try {
       const { images: imageFiles, uploadRoot } = await FileUploadService.processFileList(files);
       await handleImagesUploaded(imageFiles, uploadRoot);
-      console.log(`Processed ${imageFiles.length} image files`);
+      console.info(`Processed ${imageFiles.length} image files`);
     } catch (error) {
       console.error('Error processing files:', error);
     }
@@ -88,7 +88,6 @@ export const Layout: React.FC = () => {
     );
   }
 
-  const filteredImages = getFilteredImages();
   const showReuploadPrompt = currentProject.totalImages > 0 && images.length === 0;
 
   return (
@@ -178,8 +177,8 @@ export const Layout: React.FC = () => {
           onClose={handleCloseImageViewer}
           onPrevious={handlePreviousImage}
           onNext={handleNextImage}
-          hasPrevious={getNavigationState().hasPrevious}
-          hasNext={getNavigationState().hasNext}
+          hasPrevious={navigationState.hasPrevious}
+          hasNext={navigationState.hasNext}
           labels={labels}
           onLabelImage={(labelId) => handleImageLabel(selectedImage, labelId)}
           onCreateLabel={handleCreateLabel}

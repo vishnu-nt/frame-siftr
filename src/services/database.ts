@@ -102,6 +102,16 @@ class DatabaseService {
     await this.db.delete('projects', projectId);
   }
 
+  async deleteCategory(categoryId: string): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized');
+    await this.db.delete('categories', categoryId);
+  }
+
+  async deleteImageLabel(imageLabelId: string): Promise<void> {
+    if (!this.db) throw new Error('Database not initialized');
+    await this.db.delete('labels', imageLabelId);
+  }
+
   async exportProject(projectId: string): Promise<ProjectData | null> {
     return await this.getProject(projectId);
   }

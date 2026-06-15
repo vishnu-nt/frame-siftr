@@ -15,7 +15,9 @@ const CELL_HEIGHT = 228;
 const GRID_GAP = 16;
 const GRID_PADDING = 16;
 
-interface ImageGridProps {
+import { GridCell, GridCellProps } from "./GridCell";
+
+export interface ImageGridProps {
   images: ImageFile[];
   totalImages: number;
   selectedCategory: string | null;
@@ -24,51 +26,6 @@ interface ImageGridProps {
   onImageLabel: (image: ImageFile, labelId: string) => void;
   categories: Label[];
 }
-
-type GridCellProps = {
-  images: ImageFile[];
-  columnCount: number;
-  categories: Label[];
-  onImageSelect: (image: ImageFile) => void;
-  onImageLabel: (image: ImageFile, labelId: string) => void;
-};
-
-const GridCell = memo(function GridCell({
-  columnIndex,
-  rowIndex,
-  style,
-  images,
-  columnCount,
-  categories,
-  onImageSelect,
-  onImageLabel,
-}: {
-  columnIndex: number;
-  rowIndex: number;
-  style: CSSProperties;
-  ariaAttributes: {
-    "aria-colindex": number;
-    role: "gridcell";
-  };
-} & GridCellProps) {
-  const index = rowIndex * columnCount + columnIndex;
-  if (index >= images.length) {
-    return <div style={style} />;
-  }
-
-  const image = images[index];
-
-  return (
-    <div style={{ ...style, padding: GRID_GAP / 2 }}>
-      <ImageThumbnail
-        image={image}
-        categories={categories}
-        onSelect={() => onImageSelect(image)}
-        onLabel={(categoryId) => onImageLabel(image, categoryId)}
-      />
-    </div>
-  );
-});
 
 export const ImageGrid: React.FC<ImageGridProps> = ({
   images,
@@ -192,7 +149,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
       style={{ padding: GRID_PADDING }}
     >
       <Grid
-        cellComponent={GridCell}
+        cellComponent={GridCell as any}
         cellProps={cellProps}
         columnCount={columnCount}
         columnWidth={columnWidth}
