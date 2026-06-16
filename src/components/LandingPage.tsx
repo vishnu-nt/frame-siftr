@@ -25,7 +25,6 @@ interface MockImage {
   label: string | null;
 }
 
-// Label colors for the mock culling simulator (defined outside component to prevent re-creation)
 const labelNames: { [key: string]: { name: string; color: string } } = {
   "1": {
     name: "Select",
