@@ -149,7 +149,7 @@ export const Layout: React.FC = () => {
                 />
                 <button
                   onClick={handleReuploadClick}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-cursor-accent hover:bg-blue-600 text-white rounded text-sm font-semibold transition"
+                  className="flex items-center gap-2 px-5 py-2.5 bg-cursor-accent hover:bg-blue-600 text-white rounded-sm text-sm font-semibold transition"
                 >
                   <Upload size={16} />
                   <span>Select Folder "{currentProject.uploadRoot}"</span>
@@ -203,7 +203,7 @@ export const Layout: React.FC = () => {
 
       {/* Mismatch Warning Modal */}
       {mismatchInfo && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4">
           <div className="bg-cursor-sidebar border border-cursor-border rounded-xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-start gap-3 text-yellow-500 mb-4">
               <AlertTriangle size={24} className="shrink-0" />
@@ -218,13 +218,13 @@ export const Layout: React.FC = () => {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => handleResolveMismatch(false)}
-                className="px-4 py-2 bg-transparent hover:bg-cursor-hover border border-cursor-border rounded text-sm text-white transition"
+                className="px-4 py-2 bg-transparent hover:bg-cursor-hover border border-cursor-border rounded-sm text-sm text-white transition"
               >
                 Select Another Folder
               </button>
               <button
                 onClick={() => handleResolveMismatch(true)}
-                className="px-4 py-2 bg-cursor-accent hover:bg-blue-600 text-white rounded text-sm font-medium transition"
+                className="px-4 py-2 bg-cursor-accent hover:bg-blue-600 text-white rounded-sm text-sm font-medium transition"
               >
                 Use "{mismatchInfo.newUploadRoot}"
               </button>

@@ -151,10 +151,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
       {/* Header */}
       <header className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between border-b border-white/5">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-blue-600 via-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
             <Camera size={18} className="text-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white bg-gradient-to-r from-white to-slate-300 bg-clip-text">
+          <span className="text-xl font-bold tracking-tight text-white bg-linear-to-r from-white to-slate-300 bg-clip-text">
             Frame Siftr
           </span>
         </div>
@@ -188,7 +188,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
 
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.1] mb-6">
           Cull thousands of RAW photos{" "}
-          <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
             without the wait.
           </span>
         </h1>
@@ -196,7 +196,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
           A lightning-fast, privacy-first photo selector that runs entirely in
           your browser. Organize massive shoots instantly without uploading a
-          single megabyte.
+          single byte.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
@@ -204,7 +204,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
             onClick={() => {
               setShowAuthModal(true);
             }}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 py-3.5 px-7 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl text-sm shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all group"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 py-3.5 px-7 bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl text-sm shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all group"
           >
             <span>Launch Culling Workspace</span>
             <ArrowRight
@@ -298,17 +298,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                 </span>
               </div>
               {simFeedback && (
-                <div className="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded animate-bounce">
+                <div className="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-sm animate-bounce">
                   {simFeedback}
                 </div>
               )}
             </div>
 
             {/* Sandbox Canvas */}
-            <div className="relative aspect-[16/10] bg-slate-950 flex items-center justify-center p-6 select-none">
+            <div className="relative aspect-16/10 bg-slate-950 flex items-center justify-center p-6 select-none">
               {/* Active Image Canvas */}
               <div
-                className={`w-full h-full rounded-lg bg-gradient-to-br ${mockImages[activeIndex].gradient} shadow-inner flex flex-col items-center justify-center relative transition-all duration-300 border-2 border-indigo-500/40`}
+                className={`w-full h-full rounded-lg bg-linear-to-br ${mockImages[activeIndex].gradient} shadow-inner flex flex-col items-center justify-center relative transition-all duration-300 border-2 border-indigo-500/40`}
               >
                 {/* Image Details Badge */}
                 <div className="absolute top-4 left-4 px-3 py-1 bg-black/40 backdrop-blur-md rounded-md text-xs font-mono text-slate-200">
@@ -356,7 +356,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
                         : "bg-slate-900 border-white/10 hover:border-slate-700 text-slate-300"
                     }`}
                   >
-                    <span className="font-mono bg-black/20 px-1 py-0.5 rounded text-[10px] mr-1">
+                    <span className="font-mono bg-black/20 px-1 py-0.5 rounded-sm text-[10px] mr-1">
                       {num}
                     </span>
                     {labelNames[num].name}
@@ -415,27 +415,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
               </p>
 
               <ul className="space-y-2.5 text-xs text-slate-400">
-                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
+                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded-sm border border-white/5">
                   <span>Next Photo</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded-sm font-mono text-[10px] text-white">
                     ▶ Arrow
                   </kbd>
                 </li>
-                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
+                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded-sm border border-white/5">
                   <span>Previous Photo</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded-sm font-mono text-[10px] text-white">
                     ◀ Arrow
                   </kbd>
                 </li>
-                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
+                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded-sm border border-white/5">
                   <span>Label & Rate</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded-sm font-mono text-[10px] text-white">
                     1 - 5 Keys
                   </kbd>
                 </li>
-                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded border border-white/5">
+                <li className="flex justify-between items-center bg-slate-900/50 p-2 rounded-sm border border-white/5">
                   <span>Clear Selection</span>
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded font-mono text-[10px] text-white">
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded-sm font-mono text-[10px] text-white">
                     0 / Esc
                   </kbd>
                 </li>
@@ -482,7 +482,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="relative p-8 bg-slate-900/20 border border-white/5 rounded-2xl text-center flex flex-col items-center">
-            <div className="absolute -top-5 w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
+            <div className="absolute -top-5 w-10 h-10 rounded-xl bg-linear-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
               1
             </div>
             <div className="w-12 h-12 rounded-full bg-slate-850 flex items-center justify-center text-slate-300 mt-4 mb-5 border border-white/10">
@@ -498,7 +498,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
           </div>
 
           <div className="relative p-8 bg-slate-900/20 border border-white/5 rounded-2xl text-center flex flex-col items-center">
-            <div className="absolute -top-5 w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
+            <div className="absolute -top-5 w-10 h-10 rounded-xl bg-linear-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
               2
             </div>
             <div className="w-12 h-12 rounded-full bg-slate-850 flex items-center justify-center text-slate-300 mt-4 mb-5 border border-white/10">
@@ -514,7 +514,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSuccessAuth }) => {
           </div>
 
           <div className="relative p-8 bg-slate-900/20 border border-white/5 rounded-2xl text-center flex flex-col items-center">
-            <div className="absolute -top-5 w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
+            <div className="absolute -top-5 w-10 h-10 rounded-xl bg-linear-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
               3
             </div>
             <div className="w-12 h-12 rounded-full bg-slate-850 flex items-center justify-center text-slate-300 mt-4 mb-5 border border-white/10">

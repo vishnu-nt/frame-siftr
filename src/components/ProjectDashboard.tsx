@@ -168,7 +168,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="px-2.5 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded border border-red-500/20 transition-all font-semibold"
+                  className="px-2.5 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-sm border border-red-500/20 transition-all font-semibold"
                 >
                   Logout
                 </button>
@@ -184,7 +184,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
               />
               <button
                 onClick={handleImportClick}
-                className="flex items-center gap-2 px-4 py-2 bg-cursor-sidebar hover:bg-[#151b2e] border border-cursor-border rounded text-sm font-medium transition"
+                className="flex items-center gap-2 px-4 py-2 bg-cursor-sidebar hover:bg-[#151b2e] border border-cursor-border rounded-sm text-sm font-medium transition"
               >
                 <Upload size={16} />
                 <span>Import Project JSON</span>
@@ -211,7 +211,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                   placeholder="e.g. Vacation Photos"
                   value={newProjectName}
                   onChange={(e) => setNewProjectName(e.target.value)}
-                  className="w-full px-3 py-2 bg-cursor-bg border border-cursor-border rounded focus:border-cursor-accent outline-none text-sm text-white"
+                  className="w-full px-3 py-2 bg-cursor-bg border border-cursor-border rounded-sm focus:border-cursor-accent outline-hidden text-sm text-white"
                   required
                 />
               </div>
@@ -224,7 +224,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-cursor-accent hover:bg-blue-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"
+                className="w-full py-2 px-4 bg-cursor-accent hover:bg-blue-600 text-white rounded-sm text-sm font-medium transition flex items-center justify-center gap-2"
               >
                 <FolderPlus size={16} />
                 <span>Create & Open</span>
@@ -271,19 +271,19 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                               type="text"
                               value={editName}
                               onChange={(e) => setEditName(e.target.value)}
-                              className="px-2 py-1 bg-cursor-bg border border-cursor-accent rounded text-sm text-white focus:outline-none"
+                              className="px-2 py-1 bg-cursor-bg border border-cursor-accent rounded-sm text-sm text-white focus:outline-hidden"
                               autoFocus
                             />
                             <button
                               onClick={() => handleSaveRename(project.id)}
-                              className="p-1 text-green-500 hover:bg-cursor-hover rounded"
+                              className="p-1 text-green-500 hover:bg-cursor-hover rounded-sm"
                               title="Save"
                             >
                               <Check size={16} />
                             </button>
                             <button
                               onClick={handleCancelRename}
-                              className="p-1 text-red-400 hover:bg-cursor-hover rounded"
+                              className="p-1 text-red-400 hover:bg-cursor-hover rounded-sm"
                               title="Cancel"
                             >
                               <X size={16} />
@@ -299,7 +299,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                             </span>
                             <button
                               onClick={() => handleStartRename(project)}
-                              className="opacity-0 group-hover:opacity-100 p-1 text-cursor-text-secondary hover:text-white rounded transition"
+                              className="opacity-0 group-hover:opacity-100 p-1 text-cursor-text-secondary hover:text-white rounded-sm transition"
                               title="Rename"
                             >
                               <Edit3 size={14} />
@@ -351,7 +351,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                       <div className="flex items-center gap-2 justify-end">
                         <button
                           onClick={() => onSelectProject(project.id)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-cursor-accent/10 hover:bg-cursor-accent text-cursor-accent hover:text-white rounded text-xs font-semibold transition"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-cursor-accent/10 hover:bg-cursor-accent text-cursor-accent hover:text-white rounded-sm text-xs font-semibold transition"
                         >
                           <Play size={12} />
                           <span>Open</span>
@@ -359,7 +359,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
 
                         <button
                           onClick={() => setDeletingProjectId(project.id)}
-                          className="p-1.5 text-cursor-text-secondary hover:text-red-400 hover:bg-red-500/10 rounded transition"
+                          className="p-1.5 text-cursor-text-secondary hover:text-red-400 hover:bg-red-500/10 rounded-sm transition"
                           title="Delete Project"
                         >
                           <Trash2 size={16} />
@@ -376,7 +376,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
 
       {/* Styled deletion confirmation dialog */}
       {deletingProjectId && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4">
           <div className="bg-cursor-sidebar border border-cursor-border rounded-xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
             <h3 className="text-lg font-semibold text-white mb-2">
               Delete Project
@@ -392,7 +392,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setDeletingProjectId(null)}
-                className="px-4 py-2 bg-transparent hover:bg-cursor-hover border border-cursor-border rounded text-sm text-white transition"
+                className="px-4 py-2 bg-transparent hover:bg-cursor-hover border border-cursor-border rounded-sm text-sm text-white transition"
               >
                 Cancel
               </button>
@@ -401,7 +401,7 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
                   onDeleteProject(deletingProjectId);
                   setDeletingProjectId(null);
                 }}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium transition"
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-sm text-sm font-medium transition"
               >
                 Delete
               </button>

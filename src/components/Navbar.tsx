@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <div className="h-12 bg-cursor-sidebar border-b border-cursor-border flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
         <button
-          className="flex items-center gap-1.5 px-2.5 py-1 bg-cursor-sidebar hover:bg-cursor-hover border border-cursor-border rounded text-xs text-cursor-text font-medium"
+          className="flex items-center gap-1.5 px-2.5 py-1 bg-cursor-sidebar hover:bg-cursor-hover border border-cursor-border rounded-sm text-xs text-cursor-text font-medium"
           onClick={onCloseProject}
           title="Back to Projects Dashboard"
         >
@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="text"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
-              className="px-2 py-0.5 bg-cursor-bg border border-cursor-accent rounded text-xs text-white focus:outline-none w-32"
+              className="px-2 py-0.5 bg-cursor-bg border border-cursor-accent rounded-sm text-xs text-white focus:outline-hidden w-32"
               autoFocus
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -97,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }
                 setIsEditingName(false);
               }}
-              className="p-0.5 text-green-500 hover:bg-cursor-hover rounded"
+              className="p-0.5 text-green-500 hover:bg-cursor-hover rounded-sm"
               title="Save Name"
             >
               <Check size={14} />
@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setEditName(projectName);
                 setIsEditingName(false);
               }}
-              className="p-0.5 text-red-400 hover:bg-cursor-hover rounded"
+              className="p-0.5 text-red-400 hover:bg-cursor-hover rounded-sm"
               title="Cancel"
             >
               <X size={14} />
@@ -124,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
             <button
               onClick={() => setIsEditingName(true)}
-              className="opacity-0 group-hover:opacity-100 p-0.5 text-cursor-text-secondary hover:text-white rounded transition"
+              className="opacity-0 group-hover:opacity-100 p-0.5 text-cursor-text-secondary hover:text-white rounded-sm transition"
               title="Rename Project"
             >
               <Edit3 size={12} />
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         />
 
         <button
-          className="flex items-center gap-1.5 px-2.5 py-1 bg-cursor-accent hover:bg-blue-600 rounded text-white text-xs font-medium"
+          className="flex items-center gap-1.5 px-2.5 py-1 bg-cursor-accent hover:bg-blue-600 rounded-sm text-white text-xs font-medium"
           onClick={handleFolderUpload}
         >
           <Upload size={14} />
@@ -151,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         <button
-          className="flex items-center gap-1.5 px-2.5 py-1 border border-cursor-border hover:bg-cursor-hover rounded text-xs"
+          className="flex items-center gap-1.5 px-2.5 py-1 border border-cursor-border hover:bg-cursor-hover rounded-sm text-xs"
           onClick={onManageCategories}
         >
           <Tag size={14} />
@@ -192,7 +192,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         <button
-          className="p-1 hover:bg-cursor-hover rounded text-cursor-text-secondary hover:text-white transition-colors"
+          className="p-1 hover:bg-cursor-hover rounded-sm text-cursor-text-secondary hover:text-white transition-colors"
           onClick={onOpenSettings}
           title="Settings"
           aria-label="Settings"
@@ -202,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {onLogout && (
           <button
-            className="p-1 hover:bg-red-500/10 hover:text-red-400 rounded text-cursor-text-secondary transition-colors"
+            className="p-1 hover:bg-red-500/10 hover:text-red-400 rounded-sm text-cursor-text-secondary transition-colors"
             onClick={onLogout}
             title="Log Out"
             aria-label="Log Out"

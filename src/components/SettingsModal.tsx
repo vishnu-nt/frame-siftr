@@ -44,7 +44,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 hover:bg-cursor-hover rounded"
+            className="p-1 hover:bg-cursor-hover rounded-sm"
             aria-label="Close settings"
           >
             <X size={20} />
@@ -61,7 +61,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               onChange={(e) =>
                 setLocalPrefs((prev) => ({ ...prev, includeEmptyLabels: e.target.checked }))
               }
-              className="rounded border-cursor-border"
+              className="rounded-sm border-cursor-border"
             />
             <span className="text-sm text-cursor-text">
               Include empty label folders (labels with no images)
@@ -75,7 +75,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               onChange={(e) =>
                 setLocalPrefs((prev) => ({ ...prev, includeUnlabeled: e.target.checked }))
               }
-              className="rounded border-cursor-border"
+              className="rounded-sm border-cursor-border"
             />
             <span className="text-sm text-cursor-text">
               Include unlabeled images in an &quot;Unlabeled&quot; folder
@@ -95,7 +95,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   pathLayout: e.target.value as ExportPathLayout,
                 }))
               }
-              className="w-full bg-cursor-bg border border-cursor-border rounded px-3 py-2 text-sm text-cursor-text"
+              className="w-full bg-cursor-bg border border-cursor-border rounded-sm px-3 py-2 text-sm text-cursor-text"
             >
               <option value="flat">Flat (LabelName/image.jpg)</option>
               <option value="preserve">Preserve subfolders (LabelName/photos/2024/image.jpg)</option>
@@ -107,14 +107,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-sm border border-cursor-border hover:bg-cursor-hover rounded"
+            className="px-4 py-2 text-sm border border-cursor-border hover:bg-cursor-hover rounded-sm"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handleSave}
-            className="px-4 py-2 text-sm bg-cursor-accent hover:bg-blue-600 text-white rounded"
+            className="px-4 py-2 text-sm bg-cursor-accent hover:bg-blue-600 text-white rounded-sm"
           >
             Save
           </button>

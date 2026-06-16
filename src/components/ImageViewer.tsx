@@ -250,7 +250,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
         {/* Zoom Controls */}
         <div className="flex items-center justify-center gap-2 p-4 bg-black bg-opacity-50">
           <button
-            className="flex items-center gap-1 px-3 py-2 bg-black bg-opacity-50 hover:bg-opacity-75 rounded text-white"
+            className="flex items-center gap-1 px-3 py-2 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-sm text-white"
             onClick={() => setZoom((prev) => Math.min(prev * 1.2, 5))}
             title="Zoom In"
           >
@@ -263,7 +263,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
             {Math.round(zoom * 100)}%
           </span>
           <button
-            className="flex items-center gap-1 px-3 py-2 bg-black bg-opacity-50 hover:bg-opacity-75 rounded text-white"
+            className="flex items-center gap-1 px-3 py-2 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-sm text-white"
             onClick={() => setZoom((prev) => Math.max(prev / 1.2, 0.1))}
             title="Zoom Out"
           >
@@ -273,7 +273,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
             <span>Zoom Out</span>
           </button>
           <button
-            className="px-3 py-2 bg-black bg-opacity-50 hover:bg-opacity-75 rounded text-white ml-2"
+            className="px-3 py-2 bg-black bg-opacity-50 hover:bg-opacity-75 rounded-sm text-white ml-2"
             onClick={() => {
               setZoom(1);
               setPan({ x: 0, y: 0 });
@@ -296,7 +296,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
               </p>
             </div>
             <button
-              className="px-3 py-1 bg-cursor-accent hover:bg-blue-600 rounded text-white text-sm"
+              className="px-3 py-1 bg-cursor-accent hover:bg-blue-600 rounded-sm text-white text-sm"
               onClick={() => setShowCreateLabelDialog(true)}
               title="Create New Label"
             >
@@ -414,7 +414,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
                   placeholder="Enter label name"
                   value={newLabelName}
                   onChange={(e) => setNewLabelName(e.target.value)}
-                  className="w-full px-3 py-2 bg-cursor-bg border border-cursor-border rounded text-white placeholder-cursor-text-secondary focus:outline-none focus:border-cursor-accent"
+                  className="w-full px-3 py-2 bg-cursor-bg border border-cursor-border rounded-sm text-white placeholder-cursor-text-secondary focus:outline-hidden focus:border-cursor-accent"
                   autoFocus
                 />
               </div>
@@ -442,14 +442,14 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
 
             <div className="p-4 border-t border-cursor-border flex gap-2">
               <button
-                className="flex items-center gap-2 px-4 py-2 bg-cursor-accent hover:bg-blue-600 rounded text-white"
+                className="flex items-center gap-2 px-4 py-2 bg-cursor-accent hover:bg-blue-600 rounded-sm text-white"
                 onClick={handleCreateLabel}
               >
                 <Save size={16} />
                 Create Label
               </button>
               <button
-                className="px-4 py-2 border border-cursor-border hover:bg-cursor-hover rounded text-white"
+                className="px-4 py-2 border border-cursor-border hover:bg-cursor-hover rounded-sm text-white"
                 onClick={handleCancelCreateLabel}
               >
                 Cancel

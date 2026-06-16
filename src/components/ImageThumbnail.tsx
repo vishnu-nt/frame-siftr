@@ -172,7 +172,7 @@ export const ImageThumbnail: React.FC<ImageThumbnailProps> = ({
             })}
             
             <button
-              className="w-full flex items-center gap-2 p-2 hover:bg-cursor-hover rounded text-left border-t border-cursor-border mt-2 pt-2"
+              className="w-full flex items-center gap-2 p-2 hover:bg-cursor-hover rounded-sm text-left border-t border-cursor-border mt-2 pt-2"
               onClick={() => setShowLabelMenu(false)}
             >
               <X size={16} />

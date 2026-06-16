@@ -63,7 +63,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
   return (
     <div className="w-full max-w-md p-8 bg-cursor-sidebar/90 border border-cursor-border rounded-2xl shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
+        <h2 className="text-2xl font-bold bg-linear-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </h2>
         {onClose && (
@@ -95,7 +95,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
             setErrorMsg(null);
             setSuccessMsg(null);
           }}
-          className={`flex-1 pb-3 text-sm font-semibold transition-colors border-b-2 -mb-[2px] ${
+          className={`flex-1 pb-3 text-sm font-semibold transition-colors border-b-2 mb-[-2px] ${
             !isSignUp 
               ? 'border-indigo-500 text-white font-bold' 
               : 'border-transparent text-cursor-text-secondary hover:text-white'
@@ -110,7 +110,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
             setErrorMsg(null);
             setSuccessMsg(null);
           }}
-          className={`flex-1 pb-3 text-sm font-semibold transition-colors border-b-2 -mb-[2px] ${
+          className={`flex-1 pb-3 text-sm font-semibold transition-colors border-b-2 mb-[-2px] ${
             isSignUp 
               ? 'border-indigo-500 text-white font-bold' 
               : 'border-transparent text-cursor-text-secondary hover:text-white'
@@ -148,7 +148,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full pl-10 pr-4 py-2.5 bg-cursor-bg border border-cursor-border hover:border-indigo-500/50 focus:border-indigo-500 focus:outline-none rounded-lg text-sm text-white placeholder-cursor-text-secondary/50 transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 bg-cursor-bg border border-cursor-border hover:border-indigo-500/50 focus:border-indigo-500 focus:outline-hidden rounded-lg text-sm text-white placeholder-cursor-text-secondary/50 transition-colors"
             />
           </div>
         </div>
@@ -169,7 +169,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               minLength={6}
-              className="w-full pl-10 pr-10 py-2.5 bg-cursor-bg border border-cursor-border hover:border-indigo-500/50 focus:border-indigo-500 focus:outline-none rounded-lg text-sm text-white placeholder-cursor-text-secondary/50 transition-colors"
+              className="w-full pl-10 pr-10 py-2.5 bg-cursor-bg border border-cursor-border hover:border-indigo-500/50 focus:border-indigo-500 focus:outline-hidden rounded-lg text-sm text-white placeholder-cursor-text-secondary/50 transition-colors"
             />
             <button
               type="button"
@@ -185,7 +185,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg text-sm shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all"
+          className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg text-sm shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all"
         >
           {loading ? (
             <>

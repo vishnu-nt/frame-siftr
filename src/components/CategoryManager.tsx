@@ -65,7 +65,7 @@ export const CategoryManager: React.FC<LabelManagerProps> = ({
         <div className="flex items-center justify-between p-4 border-b border-cursor-border">
           <h2 className="text-lg font-semibold text-white">Manage Labels</h2>
           <button
-            className="p-1 hover:bg-cursor-hover rounded"
+            className="p-1 hover:bg-cursor-hover rounded-sm"
             onClick={() => setIsOpen(false)}
           >
             <X size={20} />
@@ -83,7 +83,7 @@ export const CategoryManager: React.FC<LabelManagerProps> = ({
             {labels.map((label) => (
               <div
                 key={label.id}
-                className="flex items-center justify-between p-3 bg-cursor-hover rounded border border-cursor-border"
+                className="flex items-center justify-between p-3 bg-cursor-hover rounded-sm border border-cursor-border"
               >
                 <div className="flex items-center gap-3">
                   <div
@@ -98,13 +98,13 @@ export const CategoryManager: React.FC<LabelManagerProps> = ({
                 
                 <div className="flex items-center gap-1">
                   <button
-                    className="p-1 hover:bg-cursor-active rounded"
+                    className="p-1 hover:bg-cursor-active rounded-sm"
                     onClick={() => handleEdit(label)}
                   >
                     <Edit2 size={14} />
                   </button>
                   <button
-                    className="p-1 hover:bg-red-600 rounded text-red-400"
+                    className="p-1 hover:bg-red-600 rounded-sm text-red-400"
                     onClick={() => handleDelete(label.id)}
                   >
                     <Trash2 size={14} />
@@ -127,7 +127,7 @@ export const CategoryManager: React.FC<LabelManagerProps> = ({
                   placeholder="Label name"
                   value={newLabelName}
                   onChange={(e) => setNewLabelName(e.target.value)}
-                  className="w-full px-3 py-2 bg-cursor-bg border border-cursor-border rounded text-white placeholder-cursor-text-secondary focus:outline-none focus:border-cursor-accent"
+                  className="w-full px-3 py-2 bg-cursor-bg border border-cursor-border rounded-sm text-white placeholder-cursor-text-secondary focus:outline-hidden focus:border-cursor-accent"
                 />
                 
                 <div>
@@ -148,7 +148,7 @@ export const CategoryManager: React.FC<LabelManagerProps> = ({
                 
                 <div className="flex gap-2">
                   <button
-                    className="flex items-center gap-2 px-3 py-2 bg-cursor-accent hover:bg-blue-600 rounded text-white text-sm"
+                    className="flex items-center gap-2 px-3 py-2 bg-cursor-accent hover:bg-blue-600 rounded-sm text-white text-sm"
                     onClick={editingLabel ? handleUpdate : handleCreate}
                   >
                     <Save size={16} />
@@ -156,7 +156,7 @@ export const CategoryManager: React.FC<LabelManagerProps> = ({
                   </button>
                   
                   <button
-                    className="px-3 py-2 border border-cursor-border hover:bg-cursor-hover rounded text-sm"
+                    className="px-3 py-2 border border-cursor-border hover:bg-cursor-hover rounded-sm text-sm"
                     onClick={handleCancel}
                   >
                     Cancel

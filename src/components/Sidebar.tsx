@@ -105,7 +105,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="flex-1 overflow-y-auto">
         <div className="p-2">
           <button
-            className="w-full flex items-center justify-between p-2 hover:bg-cursor-hover rounded text-left"
+            className="w-full flex items-center justify-between p-2 hover:bg-cursor-hover rounded-sm text-left"
             onClick={() => toggleSection("labels")}
           >
             <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
 
           <button
-            className="w-full flex items-center justify-between p-2 hover:bg-cursor-hover rounded text-left mt-4"
+            className="w-full flex items-center justify-between p-2 hover:bg-cursor-hover rounded-sm text-left mt-4"
             onClick={() => toggleSection("folders")}
           >
             <div className="flex items-center gap-2">
@@ -226,7 +226,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
 
         <button
-          className="w-full flex items-center gap-2 p-2 border border-cursor-border hover:bg-cursor-hover rounded"
+          className="w-full flex items-center gap-2 p-2 border border-cursor-border hover:bg-cursor-hover rounded-sm"
           onClick={() => setShowImportDialog(true)}
         >
           <Upload size={16} />
@@ -234,7 +234,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
 
         {showImportDialog && (
-          <div className="absolute bottom-20 left-4 right-4 bg-cursor-sidebar border border-cursor-border rounded p-4">
+          <div className="absolute bottom-20 left-4 right-4 bg-cursor-sidebar border border-cursor-border rounded-sm p-4">
             <h3 className="text-sm font-medium mb-2">Import Project Data</h3>
             <input
               type="file"
