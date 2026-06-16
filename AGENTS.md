@@ -17,7 +17,7 @@ No backend. No auth. Single active project (first project in DB wins).
 | `npm run build` | Production build |
 | `npm test` | Jest via react-scripts (interactive watch) |
 
-Stack: **Create React App** (`react-scripts` 5), **React 19**, **TypeScript 4.9**, **Tailwind 3**, **idb**, **react-window**.
+Stack: **Create React App** (`react-scripts` 5), **React 19**, **TypeScript 6**, **Tailwind 4**, **idb**, **react-window**.
 
 ## Terminology (important)
 
@@ -104,7 +104,6 @@ Image identity: **`relativePath` + `size` + `lastModified`** (`buildImageIdentit
 - Services: class with static methods (`FileUploadService`) or singleton (`dbService` export from `database.ts`).
 - Prefer extending `useAppState` return API and passing props down over new global state libraries.
 - TypeScript strict-ish; define shared types in `src/types/index.ts`.
-- Do not eject CRA unless explicitly requested.
 - Minimize scope: no unrelated refactors when fixing a bug.
 
 ## Known gaps (as of repo state)
@@ -125,7 +124,6 @@ Image identity: **`relativePath` + `size` + `lastModified`** (`buildImageIdentit
 
 - Adding a server, env secrets, or cloud storage without an explicit request.
 - Renaming label ↔ category across the whole codebase in a drive-by change.
-- Large dependency swaps (e.g. Vite migration) unless asked.
 - Committing lockfile churn from switching package managers unless requested.
 
 ## Related docs

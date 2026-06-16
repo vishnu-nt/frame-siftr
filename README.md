@@ -1,6 +1,6 @@
 # Frame Siftr
 
-A React TypeScript application for categorizing and labeling large collections of images. Built with a clean architecture that mimics the Cursor app interface.
+A lightning-fast, privacy-first photo selector that runs entirely in your browser. Organize massive collections of images instantly without uploading a single byte. Built with a clean architecture, using React, TypeScript and Vite.
 
 ## Features
 
@@ -222,9 +222,6 @@ src/
 - Implement proper error handling
 - Add comprehensive type definitions
 
-## License
-
-This project is licensed under the MIT License.
 
 ## Contributing
 
