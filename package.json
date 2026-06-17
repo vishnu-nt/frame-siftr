@@ -8,6 +8,7 @@
     "url": "https://github.com/vishnu-nt/"
   },
   "dependencies": {
+    "@posthog/react": "^1.10.2",
     "@supabase/supabase-js": "^2.108.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.3.1",
@@ -23,6 +24,7 @@
     "fflate": "^0.8.3",
     "idb": "^8.0.3",
     "lucide-react": "^0.544.0",
+    "posthog-js": "^1.386.8",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-window": "^2.1.1",

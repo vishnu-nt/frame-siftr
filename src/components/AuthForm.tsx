@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { supabase, isMockAuth } from '../services/supabaseClient';
 import { Mail, Lock, Eye, EyeOff, Loader2, Info } from 'lucide-react';
+import { usePostHog } from '@posthog/react';
 
 interface AuthFormProps {
   onSuccess: (session: any) => void;
@@ -8,6 +9,7 @@ interface AuthFormProps {
 }
 
 export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
+  const posthog = usePostHog();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +31,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
           password,
         });
         if (error) throw error;
-        
+
         // Supabase might require email confirmation, but our mock doesn't
         if (isMockAuth) {
           setSuccessMsg('Registration successful! Logging you in...');
@@ -38,8 +40,12 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
           }
         } else {
           if (data?.session) {
+            const userId = data.session.user?.id;
+            posthog?.identify(userId, { email });
+            posthog?.capture('user_signed_up', { auth_method: 'email', is_mock_auth: false });
             onSuccess(data.session);
           } else {
+            posthog?.capture('user_signed_up', { auth_method: 'email', email_confirmation_required: true });
             setSuccessMsg('Registration successful! Please check your email for the confirmation link.');
           }
         }
@@ -50,10 +56,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSuccess, onClose }) => {
         });
         if (error) throw error;
         if (data?.session) {
+          const userId = data.session.user?.id;
+          posthog?.identify(userId, { email });
+          posthog?.capture('user_signed_in', { auth_method: 'email' });
           onSuccess(data.session);
         }
       }
     } catch (err: any) {
+      posthog?.captureException(err);
       setErrorMsg(err.message || 'An error occurred during authentication.');
     } finally {
       setLoading(false);

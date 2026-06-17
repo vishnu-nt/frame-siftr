@@ -3,6 +3,7 @@ import { ImageFile, ImageLabel, ProjectData } from '../../types';
 import { thumbnailCache } from '../../services/thumbnailCache';
 import { reconcileImagesWithLabels } from '../../utils/paths';
 import { useLatest } from '../useLatest';
+import { usePostHog } from '@posthog/react';
 
 interface UseImagesProps {
   currentProject: ProjectData | null;
@@ -11,6 +12,7 @@ interface UseImagesProps {
 }
 
 export function useImages({ currentProject, imageLabels, updateProjectState }: UseImagesProps) {
+  const posthog = usePostHog();
   const [images, setImages] = useState<ImageFile[]>([]);
   const [mismatchInfo, setMismatchInfo] = useState<{
     newImages: ImageFile[];
@@ -39,8 +41,13 @@ export function useImages({ currentProject, imageLabels, updateProjectState }: U
         await updateProjectState(updatedProject);
       }
       setMismatchInfo(null);
+      posthog?.capture('images_uploaded', {
+        image_count: reconciled.length,
+        has_subfolders: uploadRoot !== '',
+        project_id: currentProjectRef.current?.id,
+      });
     },
-    [currentProjectRef, imageLabelsRef, updateProjectState]
+    [currentProjectRef, imageLabelsRef, updateProjectState, posthog]
   );
 
   const handleImagesUploaded = useCallback(

@@ -21,6 +21,7 @@ import {
 } from '../../services/exportService';
 import { isSafeRelativePath, buildImageIdentity, countUniqueLabeledImages } from '../../utils/paths';
 import { useLatest } from '../useLatest';
+import { usePostHog } from '@posthog/react';
 
 interface UseExportImportProps {
   currentProject: ProjectData | null;
@@ -39,6 +40,7 @@ export function useExportImport({
   updateProjectState,
   onImportProject,
 }: UseExportImportProps) {
+  const posthog = usePostHog();
   const [isExporting, setIsExporting] = useState(false);
   const [exportPreferences, setExportPreferences] = useState<ExportPreferences>(
     DEFAULT_EXPORT_PREFERENCES
@@ -106,11 +108,17 @@ export function useExportImport({
       const dataStr = JSON.stringify(exportData, null, 2);
       const dataBlob = new Blob([dataStr], { type: 'application/json' });
       downloadBlob(dataBlob, `${getExportFilenameBase()}.json`);
+      posthog?.capture('project_exported', {
+        export_mode: 'json',
+        labeled_image_count: assignments.length,
+        project_id: currentProject.id,
+      });
     } catch (error) {
       console.error('Failed to export project data:', error);
+      posthog?.captureException(error as Error);
       alert('Failed to export project data. Please try again.');
     }
-  }, [currentProject, images, labels, imageLabels, exportPreferences, getExportFilenameBase]);
+  }, [currentProject, images, labels, imageLabels, exportPreferences, getExportFilenameBase, posthog]);
 
   const handleExportFolder = useCallback(async () => {
     if (!currentProject) {
@@ -138,14 +146,20 @@ export function useExportImport({
       if (!dirHandle) return;
 
       const result = await writeToDirectory(plan, dirHandle);
+      posthog?.capture('project_exported', {
+        export_mode: 'folder',
+        labeled_image_count: plan.entries.length,
+        project_id: currentProject.id,
+      });
       alert(formatExportSummary(plan, result));
     } catch (error) {
       console.error('Failed to export folder:', error);
+      posthog?.captureException(error as Error);
       alert('Failed to export folder. Please try again.');
     } finally {
       setIsExporting(false);
     }
-  }, [currentProject, images, labels, imageLabels, exportPreferences, confirmMissingFromSession]);
+  }, [currentProject, images, labels, imageLabels, exportPreferences, confirmMissingFromSession, posthog]);
 
   const handleExportZip = useCallback(async () => {
     if (!currentProject) {
@@ -166,9 +180,15 @@ export function useExportImport({
       setIsExporting(true);
       const zipBlob = await buildZipBlob(plan);
       downloadBlob(zipBlob, `${getExportFilenameBase()}.zip`);
+      posthog?.capture('project_exported', {
+        export_mode: 'zip',
+        labeled_image_count: plan.entries.length,
+        project_id: currentProject.id,
+      });
       alert(formatExportSummary(plan));
     } catch (error) {
       console.error('Failed to export ZIP:', error);
+      posthog?.captureException(error as Error);
       alert('Failed to export ZIP. Please try again.');
     } finally {
       setIsExporting(false);
@@ -181,6 +201,7 @@ export function useExportImport({
     exportPreferences,
     confirmMissingFromSession,
     getExportFilenameBase,
+    posthog,
   ]);
 
   const handleExport = useCallback(
@@ -270,12 +291,18 @@ export function useExportImport({
         await dbService.saveProject(project);
         localStorage.setItem('lastActiveProjectId', project.id);
 
+        posthog?.capture('project_imported', {
+          project_id: project.id,
+          labeled_image_count: project.labeledImages,
+          label_count: project.labels.length,
+        });
         onImportProjectRef.current(project);
       } catch (error) {
         console.error('Failed to import project data:', error);
+        posthog?.captureException(error as Error);
       }
     },
-    [onImportProjectRef]
+    [onImportProjectRef, posthog]
   );
 
   return {

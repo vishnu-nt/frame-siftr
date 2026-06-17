@@ -3,6 +3,7 @@ import { ImageLabel, ProjectData } from '../../types';
 import { dbService } from '../../services/database';
 import { countUniqueLabeledImages } from '../../utils/paths';
 import { useLatest } from '../useLatest';
+import { usePostHog } from '@posthog/react';
 
 interface UseProjectsProps {
   onProjectSelected: (project: ProjectData) => void;
@@ -22,6 +23,7 @@ function migrateProjectLabels(project: ProjectData): ProjectData {
 }
 
 export function useProjects({ onProjectSelected, onProjectClosed }: UseProjectsProps) {
+  const posthog = usePostHog();
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [currentProject, setCurrentProject] = useState<ProjectData | null>(null);
 
@@ -109,12 +111,14 @@ export function useProjects({ onProjectSelected, onProjectClosed }: UseProjectsP
       localStorage.setItem('lastActiveProjectId', newProject.id);
       setCurrentProject(newProject);
       onProjectSelectedRef.current(newProject);
+      posthog?.capture('project_created', { project_id: newProject.id });
       return newProject;
     } catch (error) {
       console.error('Failed to create project:', error);
+      posthog?.captureException(error as Error);
       throw error;
     }
-  }, [refreshProjectsList, onProjectSelectedRef]);
+  }, [refreshProjectsList, onProjectSelectedRef, posthog]);
 
   const handleRenameProject = useCallback(async (projectId: string, newName: string) => {
     try {
@@ -141,6 +145,7 @@ export function useProjects({ onProjectSelected, onProjectClosed }: UseProjectsP
     try {
       await dbService.deleteProject(projectId);
       setProjects((prev) => prev.filter((p) => p.id !== projectId));
+      posthog?.capture('project_deleted', { project_id: projectId });
 
       const active = currentProjectRef.current;
       if (active && active.id === projectId) {
@@ -150,8 +155,9 @@ export function useProjects({ onProjectSelected, onProjectClosed }: UseProjectsP
       }
     } catch (error) {
       console.error('Failed to delete project:', error);
+      posthog?.captureException(error as Error);
     }
-  }, [currentProjectRef, onProjectClosedRef]);
+  }, [currentProjectRef, onProjectClosedRef, posthog]);
 
   const handleCloseProject = useCallback(() => {
     localStorage.removeItem('lastActiveProjectId');

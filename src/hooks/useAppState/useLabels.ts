@@ -9,6 +9,7 @@ import {
   getLabelNameById,
 } from '../../utils/paths';
 import { useLatest } from '../useLatest';
+import { usePostHog } from '@posthog/react';
 
 interface UseLabelsProps {
   currentProject: ProjectData | null;
@@ -23,6 +24,7 @@ export function useLabels({
   onImagesLabelUpdated,
   onImagesLabelsReconciled,
 }: UseLabelsProps) {
+  const posthog = usePostHog();
   const [labels, setLabels] = useState<Label[]>([]);
   const [imageLabels, setImageLabels] = useState<ImageLabel[]>([]);
 
@@ -77,6 +79,11 @@ export function useLabels({
         setImageLabels(nextImageLabels);
         setLabels(updatedLabels);
         onImagesLabelUpdatedRef.current(image, label.name);
+        posthog?.capture('image_labeled', {
+          label_name: label.name,
+          is_relabel: !isNewLabel,
+          project_id: currentProjectRef.current?.id,
+        });
 
         const project = currentProjectRef.current;
         if (project) {
@@ -90,9 +97,10 @@ export function useLabels({
         }
       } catch (error) {
         console.error('Failed to label image:', error);
+        posthog?.captureException(error as Error);
       }
     },
-    [labelsRef, imageLabelsRef, updateProjectState, onImagesLabelUpdatedRef, currentProjectRef]
+    [labelsRef, imageLabelsRef, updateProjectState, onImagesLabelUpdatedRef, currentProjectRef, posthog]
   );
 
   const handleCreateLabel = useCallback(
@@ -111,6 +119,10 @@ export function useLabels({
 
         const nextLabels = [...labelsRef.current, newLabel];
         setLabels(nextLabels);
+        posthog?.capture('label_created', {
+          label_name: newLabel.name,
+          project_id: currentProjectRef.current?.id,
+        });
 
         const project = currentProjectRef.current;
         if (project) {
@@ -122,9 +134,10 @@ export function useLabels({
         }
       } catch (error) {
         console.error('Failed to create label:', error);
+        posthog?.captureException(error as Error);
       }
     },
-    [labelsRef, updateProjectState, currentProjectRef]
+    [labelsRef, updateProjectState, currentProjectRef, posthog]
   );
 
   const handleUpdateLabel = useCallback(
