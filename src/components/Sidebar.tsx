@@ -89,7 +89,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const labeledImageCount = countUniqueLabeledImages(imageLabels);
 
   return (
-    <div className="w-64 bg-cursor-sidebar border-r border-cursor-border flex flex-col">
+    <aside className="w-64 bg-cursor-sidebar border-r border-cursor-border flex flex-col">
       <div className="p-4 border-b border-cursor-border">
         <h1 className="text-lg font-semibold text-white">Frame Siftr</h1>
         {uploadRoot && (
@@ -251,6 +251,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
       </div>
-    </div>
+    </aside>
   );
 };

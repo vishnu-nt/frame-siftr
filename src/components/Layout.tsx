@@ -123,7 +123,7 @@ export const Layout: React.FC = () => {
         />
 
 
-        <div className="flex flex-1 flex-col min-h-0 overflow-hidden">
+        <main className="flex flex-1 flex-col min-h-0 overflow-hidden">
           {showReuploadPrompt ? (
             <div className="flex-1 flex flex-col items-center justify-center bg-cursor-bg p-8 text-center">
               <div className="bg-cursor-sidebar/40 border border-cursor-border rounded-xl p-8 max-w-lg w-full shadow-2xl flex flex-col items-center gap-6">
@@ -167,7 +167,7 @@ export const Layout: React.FC = () => {
               categories={labels}
             />
           )}
-        </div>
+        </main>
       </div>
 
       {isImageViewerOpen && selectedImage && (

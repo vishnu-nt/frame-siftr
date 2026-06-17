@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const progressPercentage = totalImages > 0 ? (labeledImages / totalImages) * 100 : 0;
 
   return (
-    <div className="h-12 bg-cursor-sidebar border-b border-cursor-border flex items-center justify-between px-4">
+    <nav className="h-12 bg-cursor-sidebar border-b border-cursor-border flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
         <button
           className="flex items-center gap-1.5 px-2.5 py-1 bg-cursor-sidebar hover:bg-cursor-hover border border-cursor-border rounded-sm text-xs text-cursor-text font-medium"
@@ -211,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 
