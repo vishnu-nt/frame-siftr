@@ -10,6 +10,7 @@ import { FileUploadService } from '../services/fileUpload';
 import { ProjectDashboard } from './ProjectDashboard';
 import { FolderOpen, AlertTriangle, Upload } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
+import { AUTH_ENABLED } from '../config/featureFlags';
 
 export const Layout: React.FC = () => {
   const {
@@ -119,7 +120,7 @@ export const Layout: React.FC = () => {
           projectId={currentProject.id}
           onRenameProject={handleRenameProject}
           onCloseProject={handleCloseProject}
-          onLogout={() => supabase.auth.signOut()}
+          onLogout={AUTH_ENABLED ? () => supabase.auth.signOut() : undefined}
         />
 
 

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { ProjectData } from "../types";
 import { supabase } from "../services/supabaseClient";
+import { AUTH_ENABLED } from "../config/featureFlags";
 
 interface ProjectDashboardProps {
   projects: ProjectData[];
@@ -42,6 +43,8 @@ export const ProjectDashboard: React.FC<ProjectDashboardProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!AUTH_ENABLED) return;
+
     // Fetch active session's user email
     supabase.auth.getSession().then(({ data: { session } }: any) => {
       setUserEmail(session?.user?.email || null);

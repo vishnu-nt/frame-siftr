@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from './components/Layout';
 import { LandingPage } from './components/LandingPage';
 import { supabase } from './services/supabaseClient';
+import { AUTH_ENABLED } from './config/featureFlags';
 import './App.css';
 
 function App() {
   const [session, setSession] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(AUTH_ENABLED);
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
+    if (!AUTH_ENABLED) return;
+
     // Check current session
     supabase.auth.getSession().then(({ data: { session } }: any) => {
       setSession(session);
@@ -37,8 +41,20 @@ function App() {
     );
   }
 
-  if (!session) {
-    return <LandingPage onSuccessAuth={(sess) => setSession(sess)} />;
+  const hasEnteredApp = AUTH_ENABLED ? !!session : entered;
+
+  if (!hasEnteredApp) {
+    return (
+      <LandingPage
+        onSuccessAuth={(sess) => {
+          if (AUTH_ENABLED) {
+            setSession(sess);
+          } else {
+            setEntered(true);
+          }
+        }}
+      />
+    );
   }
 
   return (
