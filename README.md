@@ -192,6 +192,32 @@ interface ProjectData {
 
 ## Development
 
+### End-to-end tests
+
+Use Node.js 24 or newer and the existing pnpm lockfile:
+
+```bash
+pnpm install
+pnpm exec playwright install chromium
+pnpm test:e2e
+# Interactive runner (the test owns its browser contexts)
+pnpm test:e2e:ui
+# Repeat to check reliability
+pnpm test:e2e --repeat-each=3
+```
+
+The Chromium test creates a project and label, uploads two fixture images, checks
+the downloaded ZIP's label directory and image bytes, validates JSON assignments,
+and closes/relaunches the browser to verify persisted labels and assignments.
+It re-uploads the same source folder after relaunch, as required by the app.
+Each run uses a temporary browser profile and upload directory, cleaned up afterward.
+The test waits for the app's database initialization log before creating a project;
+the dashboard currently renders before IndexedDB is ready.
+The test starts its own Vite server at `http://127.0.0.1:3100` with auth disabled;
+keep that port free. No account or credentials are required. Failed runs include
+screenshots and traces in `test-results/`; open the HTML report with
+`pnpm exec playwright show-report`. Unit tests remain separate: `pnpm test --run`.
+
 ### AI / agent documentation
 
 - **[AGENTS.md](./AGENTS.md)** — architecture, conventions, terminology, and where to change code (for Cursor, Claude Code, Codex, etc.)
